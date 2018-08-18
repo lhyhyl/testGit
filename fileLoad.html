@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <title>测试文件上传</title>
+      <script type="text/javascript" src="js/jquery%20v3.3.1.js"></script>
+      <script type="text/javascript">
+            //③创建fileLoad方法用来上传文件
+            function fileLoad(ele){
+                  //创建一个formData对象
+                var formData = new formData();
+                //获取传入元素的val
+                var name = $(ele).val();
+                  //获取files
+                var files = $(ele)[0].files[0];
+                //将name 和 files 添加到formData中，键值对形式
+                formData.append("file", files);
+                formData.append("name", name);
+                $.ajax({
+                    url: "test.php",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,// 告诉jQuery不要去处理发送的数据
+                    contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+                    beforeSend: function () {
+                       //发送之前的动作
+                        alert("我还没开始发送呢");
+                    },
+                    success: function (responseStr) {
+                       //成功后的动作
+                        alert("成功啦");
+                    }
+                    ,
+                    error : function (responseStr) {
+                        //出错后的动作
+                        alert("出错啦");
+                    }
+                });
+            }
+            $(function () {
+                var $input =  $("#upLoad");
+                // ①为input设定change事件
+                $input.change(function () {
+                //    ②如果value不为空，调用文件加载方法
+                    if($(this).val() != ""){
+                        fileLoad(this);
+                    }
+                })
+            })
+      </script>
+</head>
+<body>
+      <form action="">
+            <input type="file" id="upLoad">
+      </form>
+</body>
+
+</html>

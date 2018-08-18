@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <title>铃姐轮播图</title>
+      <script type="text/javascript" src="js/jquery%20v3.3.1.js"></script>
+      <script>
+          jQuery (function ($)
+          {
+              var CRT = 0;
+              var w = $ ("img").width (), pol = $("#pol"), spans = $ ("#num span");
+              spans.hover (function ()
+              {
+                  var me = $ (this);
+                  me.addClass ("cut").siblings (".cut").removeClass ("cut");
+                  spans.eq(CRT).clearQueue();
+                  pol.stop ().animate (
+                      {
+                          left : "-" + w * (CRT = me.index ()) + "px"
+                      }, "slow");
+              }, function()
+              {
+                  anony();
+              });
+
+              var anony = function ()
+              {
+                  CRT++;
+                  CRT = CRT > spans.length - 1 ? 0 : CRT;
+                  spans.eq(CRT).clearQueue().delay(1000).queue (function()
+                  {
+                      spans.eq(CRT).triggerHandler ("mouseover");
+                      anony();
+                  });
+              };
+
+              anony();
+          });
+      </script>
+</head>
+<style>
+      #pic {
+            width: 500px;
+            height: 300px;
+            border: 1px solid #31b0d5;
+            margin: 0 auto;
+      }
+      
+      img {
+            float: left;
+      }
+      #pic #po {
+            width: 500px;
+            overflow: hidden;
+            height: 300px;
+            left: 0px;;
+            top: 0px;
+            position: relative;
+      }
+      #pic #pol {
+            width: 2370px;
+            height: 165px;
+            position: absolute;
+      }
+      #pic #num {
+            width: 120px;
+            height: 25px;
+            position: absolute;
+            z-index: 2;
+            left: 247px;
+            top: 260px;
+      }
+
+      #pic #num span {
+            width: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            height: 20px;
+            float: left;
+            color: #f90f08;
+            text-align: center;
+      }
+
+      #pic #num span.cut {
+            background: #000000;
+            color: #FFFFFF;
+      }
+
+</style>
+<body>
+<div id="pic">
+      <div id="po">
+            <div id="pol">
+                  <img src="img/1524359193671.jpeg" alt="" width="500px">
+                  <img src="img/p1.jpg" alt="" width="500px">
+                  <img src="img/p2.jpg" alt="" width="500px">
+            </div>
+            <div id="num">
+                  <span class="cut"> 1</span>
+                  <span>2</span>
+                  <span>3</span>
+            
+            </div>
+      </div>
+</div>
+
+</body>
+</html>

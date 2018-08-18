@@ -1,0 +1,66 @@
+body {
+  background-color: #ebebeb;
+}
+header {
+  background-image: url("../img/header-bg.jpg");
+  background-position: center 10%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 100px 0;
+  height: 222px !important;
+  border: 1px solid red;
+}
+header .container .branding {
+  display: block;
+  text-align: center;
+}
+.main-nav .menu {
+  text-align: center;
+  height: 55px;
+}
+.main-nav .menu li {
+  padding: 0 20px;
+  margin: 0 10px;
+}
+.main-nav .menu li:first-child {
+  border-bottom: 2px solid #e67e22;
+}
+.main-nav .menu li a {
+  color: #000;
+  display: block;
+  height: 55px;
+  line-height: 55px;
+}
+.main-nav .menu li a:hover {
+  color: #e67e22;
+  text-decoration: none;
+}
+section .post {
+  margin-bottom: 35px;
+  background-color: white;
+  padding: 34px 33px;
+}
+section .post .post-head h2 a {
+  color: #000;
+}
+section .post .post-head h2 a:hover {
+  text-decoration: none;
+}
+section .post .post-head .post-meta {
+  margin: 18px 0 38px 0;
+}
+section .post .post-content {
+  margin-bottom: 35px;
+}
+section .post .post-permalink {
+  margin-bottom: 30px;
+}
+section .post .post-permalink a {
+  line-height: 25px;
+}
+section .widget {
+  background-color: white;
+  padding: 21px 31px 0 31px;
+  margin-bottom: 33px;
+}
+/*# sourceMappingURL=ghost.css.map */

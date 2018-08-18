@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <title>tabs选项卡</title>
+      <script type="text/javascript" src="js/jquery%20v3.3.1.js"></script>
+      <script type="text/javascript">
+          $(function () {
+              var lis = $(".tabs_head").find("li");
+              var uls = $(".tabs_content");
+              var len = lis.length;
+              var i = 0;
+              var tabTimer;
+              lis.click(function () {
+                  $($(this).attr('name')).show().siblings().hide();
+              })
+
+              lis.mouseover(function () {
+                  clearTimeout(tabTimer);
+              }).mouseout(function () {
+                  pull();
+              });
+             
+              function pull() {
+                  tabTimer = setInterval(function () {
+                      if (i < len) {
+                          $(uls[i]).show();
+                          $(uls[i]).siblings().hide();
+                          i++;
+                      } else {
+                          i = 0;
+                      }
+                  },800);
+              }
+                  pull();
+              
+          })
+      </script>
+</head>
+<style>
+      * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+      }
+      
+      .tabs {
+            width: 300px;
+            height: 400px;
+            margin: 0 auto;
+            border: 1px solid #c7ddef;
+      }
+      
+      .tabs_head {
+            margin-bottom: 80px;
+      }
+      
+      .tabs_head li {
+            float: left;
+            width: 100px;
+            background-color: #e9eeef;
+            text-align: center;
+            height: 60px;
+            line-height: 60px;
+            cursor: pointer;
+      }
+      
+      .tabs_head li:hover {
+            background-color: #31b0d5;
+      }
+      
+      .tabs_content {
+            display: none;
+      }
+      
+      .tabs_content li {
+            text-align: center;
+            margin: 10px 0;
+      }
+      
+      .tabs_content1 {
+            display: block;
+      }
+</style>
+<body>
+<div class="tabs">
+      <ul class="tabs_head">
+            <li name=".tabs_content1">人文环境</li>
+            <li name=".tabs_content2">地理科学</li>
+            <li name=".tabs_content3">动物世界</li>
+      </ul>
+      <div>
+            <ul class="tabs_content1 tabs_content">
+                  <li>tab1</li>
+                  <li>dvdasrgadasasdasdvfd</li>
+                  <li>dsfadbfdafdsbsvdfbdvfd</li>
+            </ul>
+            <ul class="tabs_content2 tabs_content">
+                  <li>tab2</li>
+                  <li>nhghgnhghnhgh</li>
+                  <li>vfevrerqrqeeqreqerfq</li>
+            </ul>
+            <ul class="tabs_content3 tabs_content">
+                  <li>tab3</li>
+                  <li>dwqareqerqdfsaffdas</li>
+                  <li>vdsavvvdsarerqqwfwq</li>
+            </ul>
+      </div>
+</div>
+</body>
+</html>
