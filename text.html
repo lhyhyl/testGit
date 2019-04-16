@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="div1">
+        <a href="baidu.com" id="link1">百度</a>
+        <a href="baidu.com" id="link2">百度</a>
+        <a href="baidu.com" id="link3">百度</a>
+        <a href="baidu.com" id="link4">百度</a>
+
+        <p id="p1">激活</p>
+        <p id="p2">取消</p>
+        <p id="p3">取消</p>
+
+
+    </div>
+</body>
+<script>
+   //事件代理
+    var div1 = document.getElementById('div1')
+    var p1 = document.getElementById('p1')
+    function bindEvent(elm,type,selector,fn) {
+        if(fn==null){
+            fn = selector
+            selector == null
+        }
+        elm.addEventListener(type,function(e){
+            var target
+            if(selector){
+                //使用代理
+                target = e.target
+                if(target.matches(selector)){
+                    fn.call(target,e)
+                }
+
+            }else {
+                //不使用代理
+                fn(e)
+            }
+        })
+
+    }
+    bindEvent(div1,'click','a',function (e) {
+        e.preventDefault()
+        console.log('clicked')
+    })
+</script>
+</html>

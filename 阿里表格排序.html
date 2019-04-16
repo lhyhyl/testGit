@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>阿里表格排序题</title>
+</head>
+<body>
+    <table id="tab" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>张三</td>
+                <td>17</td>
+            </tr>
+            <tr>
+                <td>李四</td>
+                <td>43</td>
+            </tr>
+            <tr>
+                <td>王五</td>
+                <td>22</td>
+            </tr>
+            <tr>
+                <td>黄三</td>
+                <td>20</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+<script>
+    var tBody = document.getElementsByTagName('tbody')[0]
+    var oRows = tBody.rows
+
+    function sortByAge() {
+        //将oRows转化为数组
+        var ary = Array.prototype.slice.call(oRows)
+        //对数组进行排序
+        ary.sort((a,b) => {
+            return parseFloat(a.cells[1].innerHTML) - parseFloat(b.cells[1].innerHTML)
+        })
+
+        //创建文档碎片
+        var frg = document.createDocumentFragment()
+
+        //遍历数组，将排好的内容加入碎片
+
+        for(var i = 0 ;i < ary.length;i++){
+            frg.appendChild(ary[i])
+        }
+
+        //将frg加入body
+        tBody.appendChild(frg)
+
+        //将frg置为null
+
+        frg = null
+
+    }
+
+    sortByAge()
+</script>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格排序</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: '微软雅黑';
+            font-size: 14px;
+            -webkit-user-select: none;
+        }
+        .box{
+            width: 400px ;
+            margin: 20px auto;
+            padding: 20px;
+            border:1px solid #008000;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px 0 #2ac7e1;
+        }
+        #tab thead{
+            background: green;
+            color: #fff;
+        }
+        #tab thead tr{
+            height: 35px;
+        }
+        #tab thead tr th{
+            width: 100px;
+        }
+        #tab thead tr th.cursor{
+            cursor: pointer;
+        }
+        #tab tbody tr{
+            height: 30px;
+        }
+        #tab tbody tr td{
+            width: 100px;
+            text-align: center;
+        }
+        .bg{
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <table id="tab" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th class="cursor">年龄</th>
+                    <th class="cursor">武力</th>
+                    <th>性别</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script src="js/jquery%20v3.3.1.js"></script>
+<script>
+    var oTab = document.getElementById('tab')
+    var tHead = oTab.tHead
+    var oThs = tHead.rows[0].cells
+    var tBody = oTab.tBodies[0]
+    var oRows = tBody.rows
+    var data = null
+    var judge = 1
+    //获取后台数据
+    var xhr = new XMLHttpRequest()
+    xhr.open('GET','./json/data.json',false)
+
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState == 4 && xhr.status == 200){
+            var result = xhr.responseText
+            data = eval("("+result+")")
+        }
+    }
+    xhr.send(null)
+    //實現数据绑定
+    function bind() {
+        data = data.alls
+        var frg = document.createDocumentFragment()
+        for(var i = 0;i < data.length;i++){
+            var cur = data[i]
+            //每一次循环创建一个TR
+            oTr = document.createElement('tr')
+            for(var key in cur){
+                var oTd = document.createElement('td')
+                if(key === 'sex'){
+                    oTd.innerHTML = cur[key] === 0 ? '男':'女'
+                }else{
+                    oTd.innerHTML = cur[key]
+                }
+                oTr.appendChild(oTd)
+            }
+            frg.appendChild(oTr)
+        }
+        tBody.appendChild(frg);
+        frg = null
+    }
+
+    bind();
+    //隔行变色
+    function changeBg() {
+       for(var i = 0 ;i < oRows.length;i++){
+           oRows[i].className = i % 2 === 1 ? 'bg' : null
+       }
+    }
+    changeBg()
+    //表格排序(年龄)
+    function sort(n) {
+        //先将oRows转化为数组
+        judge*=-1
+        var ary =  Array.prototype.slice.call(oRows)
+        ary.sort((a,b) => {
+
+               return parseFloat(a.cells[n].innerHTML) - parseFloat(b.cells[n].innerHTML)*judge;
+
+        })
+        var frg = document.createDocumentFragment()
+        for(var i = 0;i <ary.length;i++){
+           frg.appendChild(ary[i])
+        }
+        tBody.appendChild(frg);
+        frg = null
+        changeBg()
+    }
+    //点击排序
+    for(var i = 0;i<oThs.length;i++){
+        curTh = oThs[i]
+        if(curTh.className === 'cursor'){
+            curTh.index = i
+            curTh.onclick = function () {
+                sort.call(this,this.index)
+            }
+        }
+    }
+
+
+
+</script>
+</html>
